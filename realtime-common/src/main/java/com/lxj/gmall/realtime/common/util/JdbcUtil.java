@@ -10,7 +10,7 @@ import java.util.List;
 import static com.lxj.gmall.realtime.common.constant.Constant.*;
 /**
  * @author Laoxingjie
- * @description TODO
+ * @description 获取MySql的数据
  * @create 2026/4/4 13:55
  **/
 

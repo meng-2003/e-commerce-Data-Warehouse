@@ -12,7 +12,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import static org.apache.flink.streaming.api.environment.CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION;
 /**
  * @author Laoxingjie
- * @description TODO
+ * @description 抽象App基类
  * @create 2026/4/4 13:39
  **/
 
