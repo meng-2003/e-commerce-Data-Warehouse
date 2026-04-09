@@ -33,7 +33,7 @@ public class Constant {
 
     public static final String TOPIC_DWD_TRADE_ORDER_CANCEL_DETAIL = "dwd_trade_order_cancel_detail";
 
-    public static final String TOPIC_DWD_TRADE_ORDER_PAYMENT_SUCCESS = "dwd_trade_order_payment_success";
+    public static final String TOPIC_DWD_TRADE_ORDER_PAYMENT_SUCCESS_DETAIL = "dwd_trade_order_payment_success_detail";
     public static final String TOPIC_DWD_TRADE_ORDER_REFUND = "dwd_trade_order_refund";
 
     public static final String TOPIC_DWD_TRADE_REFUND_PAYMENT_SUCCESS = "dwd_trade_refund_payment_success";
