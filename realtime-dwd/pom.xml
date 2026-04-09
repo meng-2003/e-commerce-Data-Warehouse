@@ -16,6 +16,7 @@
         <module>realtime-dwd-trade-order-detail</module>
         <module>realtime-dwd-trade-cancel-detail</module>
         <module>realtime-dwd-trade-order-pay-suc-detail</module>
+        <module>realtime-dwd-trade-refund-pay-suc-detail</module>
     </modules>
 
     <artifactId>realtime-dwd</artifactId>
