@@ -3,25 +3,27 @@ package com.lxj.gmall.realtime.common.bean;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 /**
  * @author Laoxingjie
- * @description 首页与详情页访问实体类
- * @create 2026/4/11 13:52
+ * @description 用户登录状况实体类
+ * @create 2026/4/11 14:42
  **/
 
 @Data
 @AllArgsConstructor
-public class TrafficHomeDetailPageViewBean {
+@NoArgsConstructor
+public class UserLoginBean {
     // 窗口起始时间
     String stt;
-    // 窗口结束时间
+    // 窗口终止时间
     String edt;
     // 当天日期
     String curDate;
-    // 首页独立访客数
-    Long homeUvCt;
-    // 商品详情页独立访客数
-    Long goodDetailUvCt;
+    // 回流用户数
+    Long backCt;
+    // 独立用户数
+    Long uuCt;
     // 时间戳
     @JSONField(serialize = false)
     Long ts;

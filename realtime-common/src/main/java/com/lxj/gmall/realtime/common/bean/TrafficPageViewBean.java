@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author Laoxingjie
- * @description TODO
+ * @description 页面访问实体类
  * @create 2026/4/10 22:29
  **/
 @Data
