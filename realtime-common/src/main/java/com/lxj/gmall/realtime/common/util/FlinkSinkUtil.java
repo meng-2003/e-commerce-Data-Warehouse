@@ -75,7 +75,8 @@ public class FlinkSinkUtil {
                         .build()
                 )
                 .setDorisExecutionOptions(DorisExecutionOptions.builder() // 执行参数
-                        .setLabelPrefix(labelPrefix)  // stream-load 导入数据时 label 的前缀
+//                        .setLabelPrefix(labelPrefix)  // stream-load 导入数据时 label 的前缀:
+//                        此时会超出128个字节，报错：label=labelPrefix +库名_表名_?_?_uuid
                         .disable2PC() // 开启两阶段提交后,labelPrefix 需要全局唯一,为了测试方便禁用两阶段提交
                         .setBufferCount(3) // 批次条数: 默认 3
                         .setBufferSize(1024 * 1024) // 批次大小: 默认 1M

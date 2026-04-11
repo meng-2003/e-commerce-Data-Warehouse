@@ -32,6 +32,7 @@ import static org.apache.flink.api.common.state.StateTtlConfig.UpdateType.OnCrea
 /**
  * @author Laoxingjie
  * @description 流量域版本-渠道-地区-访客类别粒度页面浏览各窗口汇总表
+ * 按照版本、地区、渠道、新老访客对pv、uv、sv、dur进行聚合统计
  * @create 2026/4/10 22:54
  **/
 public class DwsTrafficVcChArIsNewPageViewWindow extends BaseApp {
