@@ -43,6 +43,12 @@ public class DwsTradeCartAddUuWindow extends BaseApp {
     public void handle(StreamExecutionEnvironment env, DataStreamSource<String> stream) {
         stream
                 .map(JSON::parseObject)
+//                .print();
+//        1> {"sku_num":1,"user_id":"964","sku_id":"31","id":"11179","ts":1654767740}
+//        1> {"sku_num":1,"user_id":"1933","sku_id":"31","id":"11180","ts":1654767740}
+//        2> {"sku_num":1,"user_id":"2632","sku_id":"5","id":"11181","ts":1654767740}
+//        3> {"sku_num":1,"user_id":"92","sku_id":"19","id":"11182","ts":1654767740}
+
                 .assignTimestampsAndWatermarks(
                         WatermarkStrategy
                                 .<JSONObject>forBoundedOutOfOrderness(Duration.ofSeconds(5L))
@@ -51,6 +57,7 @@ public class DwsTradeCartAddUuWindow extends BaseApp {
 
                 )
                 .keyBy(obj -> obj.getString("user_id"))
+                // 使用flink状态编程，判断是否为加购独立用户
                 .process(new KeyedProcessFunction<String, JSONObject, CartAddUuBean>() {
 
                     private ValueState<String> lastCartAddDateState;
@@ -76,6 +83,14 @@ public class DwsTradeCartAddUuWindow extends BaseApp {
 
                     }
                 })
+//                .print();
+//        3> CartAddUuBean(stt=, edt=, curDate=, cartAddUuCt=1)
+//        4> CartAddUuBean(stt=, edt=, curDate=, cartAddUuCt=1)
+//        3> CartAddUuBean(stt=, edt=, curDate=, cartAddUuCt=1)
+//        4> CartAddUuBean(stt=, edt=, curDate=, cartAddUuCt=1)
+//        1> CartAddUuBean(stt=, edt=, curDate=, cartAddUuCt=1)
+//        2> CartAddUuBean(stt=, edt=, curDate=, cartAddUuCt=1)
+//        2> CartAddUuBean(stt=, edt=, curDate=, cartAddUuCt=1)
                 .windowAll(TumblingEventTimeWindows.of(Time.seconds(5L)))
                 .reduce(
                         new ReduceFunction<CartAddUuBean>() {
@@ -100,7 +115,18 @@ public class DwsTradeCartAddUuWindow extends BaseApp {
                             }
                         }
                 )
+//                .print();
+//        1> CartAddUuBean(stt=2022-06-09 17:44:10, edt=2022-06-09 17:44:15, curDate=20220609, cartAddUuCt=5)
+//        2> CartAddUuBean(stt=2022-06-09 17:44:15, edt=2022-06-09 17:44:20, curDate=20220609, cartAddUuCt=56)
+
                 .map(new DorisMapFunction<>())
+//                .print();
+//        1> {"cart_add_uu_ct":37,"cur_date":"20220609","edt":"2022-06-09 17:45:00","stt":"2022-06-09 17:44:55"}
+//                注释了maxwell的# mock_date=2022-06-09
+//        1> {"cart_add_uu_ct":49,"cur_date":"20260411","edt":"2026-04-11 19:46:05","stt":"2026-04-11 19:46:00"}
+//        2> {"cart_add_uu_ct":59,"cur_date":"20260411","edt":"2026-04-11 19:46:10","stt":"2026-04-11 19:46:05"}
+//        3> {"cart_add_uu_ct":4,"cur_date":"20260411","edt":"2026-04-11 19:46:15","stt":"2026-04-11 19:46:10"}
+
                 .sinkTo(FlinkSinkUtil.getDorisSink(Constant.DORIS_DATABASE + ".dws_trade_cart_add_uu_window", "dws_trade_cart_add_uu_window"));
 
 

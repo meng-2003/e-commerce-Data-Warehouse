@@ -47,4 +47,5 @@ public class Constant {
     public static final String TOPIC_DWS_TRAFFIC_SOURCE_KEYWORD_PAGE_VIEW_WINDOW = "dws_traffic_source_keyword_page_view_window";
 
 
+    public static final int TWO_DAY_SECONDS = 2 * 24 * 60 * 60;
 }

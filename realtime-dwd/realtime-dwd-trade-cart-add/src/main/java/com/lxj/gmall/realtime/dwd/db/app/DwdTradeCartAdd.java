@@ -24,6 +24,7 @@ public class DwdTradeCartAdd extends BaseSQLApp {
     public void handle(StreamExecutionEnvironment env, StreamTableEnvironment tEnv) {
         // 1.读取topic_db数据
         readOdsDb(tEnv, Constant.TOPIC_DWD_TRADE_CART_ADD);
+//        tEnv.executeSql("select * from topic_db").print();
         // 2.过滤出加购数据
         Table cartAdd = tEnv.sqlQuery(
                 "SELECT\n" +
